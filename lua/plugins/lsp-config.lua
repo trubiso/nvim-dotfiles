@@ -9,7 +9,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "rust_analyzer", "clangd" },
+				ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "gopls", "pylsp" },
 			})
 		end,
 	},
@@ -22,6 +22,8 @@ return {
 			lspconfig.lua_ls.setup(cfg)
 			lspconfig.rust_analyzer.setup(cfg)
 			lspconfig.clangd.setup(cfg)
+			lspconfig.gopls.setup(cfg)
+			lspconfig.pylsp.setup(cfg)
 
 			vim.keymap.set("n", "<leader>p", "<Cmd>e#<CR>", {})
 			vim.keymap.set("n", "<leader>s", "<Cmd>vsplit<CR><C-w>l", {})
