@@ -16,21 +16,26 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local cfg = { capabilities = capabilities }
-			lspconfig.lua_ls.setup(cfg)
-			lspconfig.rust_analyzer.setup(cfg)
-			lspconfig.clangd.setup(cfg)
-			lspconfig.gopls.setup(cfg)
-			lspconfig.pylsp.setup(cfg)
+			local lsps = { "lua_ls", "rust_analyzer", "clangd", "gopls", "pylsp" }
+			for _, lsp in ipairs(lsps) do
+				vim.lsp.config(lsp, cfg)
+				vim.lsp.enable({ lsp })
+			end
+			vim.lsp.inlay_hint.enable(true)
 
 			vim.keymap.set("n", "<leader>p", "<Cmd>e#<CR>", {})
 			vim.keymap.set("n", "<leader>s", "<Cmd>vsplit<CR><C-w>l", {})
 
+			vim.diagnostic.config({
+				virtual_text = {
+					spacing = 4
+				}
+			})
 			vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+			vim.keymap.set("n", "[d", function () vim.diagnostic.jump({ count = -1 }) end)
+			vim.keymap.set("n", "]d", function () vim.diagnostic.jump({ count = 1 }) end)
 			vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
