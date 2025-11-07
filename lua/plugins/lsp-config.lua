@@ -19,10 +19,8 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local cfg = { capabilities = capabilities }
 			local lsps = { "lua_ls", "rust_analyzer", "clangd", "gopls", "pylsp" }
-			for _, lsp in ipairs(lsps) do
-				vim.lsp.config(lsp, cfg)
-				vim.lsp.enable({ lsp })
-			end
+			vim.lsp.config("*", cfg)
+			vim.lsp.enable(lsps)
 			vim.lsp.inlay_hint.enable(true)
 
 			vim.keymap.set("n", "<leader>p", "<Cmd>e#<CR>", {})
@@ -34,8 +32,8 @@ return {
 				}
 			})
 			vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-			vim.keymap.set("n", "[d", function () vim.diagnostic.jump({ count = -1 }) end)
-			vim.keymap.set("n", "]d", function () vim.diagnostic.jump({ count = 1 }) end)
+			vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end)
+			vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end)
 			vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})

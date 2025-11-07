@@ -5,7 +5,9 @@ return {
 		null_ls.setup({
 			sources = {
 				null_ls.builtins.formatting.stylua,
-				null_ls.builtins.diagnostics.cppcheck,
+				null_ls.builtins.diagnostics.cppcheck.with({
+					extra_args = { "--suppress=unusedStructMember", "--check-level=exhaustive", "--std=c++20" }
+				}),
 				null_ls.builtins.formatting.clang_format,
 				null_ls.builtins.formatting.isort,
 				null_ls.builtins.formatting.black,
