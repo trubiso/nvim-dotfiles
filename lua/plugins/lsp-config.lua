@@ -9,7 +9,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "gopls", "pylsp" },
+				ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "gopls", "pylsp", "ocamllsp" },
 			})
 		end,
 	},
@@ -18,7 +18,7 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local cfg = { capabilities = capabilities }
-			local lsps = { "lua_ls", "rust_analyzer", "clangd", "gopls", "pylsp" }
+			local lsps = { "lua_ls", "rust_analyzer", "clangd", "gopls", "pylsp", "ocamllsp" }
 			vim.lsp.config("*", cfg)
 			vim.lsp.enable(lsps)
 			vim.lsp.inlay_hint.enable(true)
